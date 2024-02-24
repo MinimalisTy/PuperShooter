@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveVector = Vector3.zero;
         _moveVectorRight = Vector3.zero;
-        if (Input.GetKeyDown(KeyCode.Space) && JumpCount > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
         {
             _fallVelocity = -jumpForce;
             JumpCount -= 1;
@@ -39,19 +39,17 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
-        if (_characterController.isGrounded)
-        {
-            JumpCount = jc;
-            //if(!Input.GetKeyDown(KeyCode.Space))
-                //_fallVelocity = 0;
-        }
-        else
-            _fallVelocity += gravity * Time.fixedDeltaTime;
-
-
-        _characterController.Move(Vector3.down * _fallVelocity * Time.fixedDeltaTime);
         _characterController.Move(_moveVector * speed * Time.fixedDeltaTime);
         _characterController.Move(_moveVectorRight * speed * Time.fixedDeltaTime);
+
+
+        _fallVelocity += gravity * Time.fixedDeltaTime;
+        _characterController.Move(Vector3.down * _fallVelocity * Time.fixedDeltaTime);
+
+
+        if(_characterController.isGrounded)
+        {
+            _fallVelocity = 0;
+        }
     }
 }
