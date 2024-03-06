@@ -10,7 +10,8 @@ public class Fireball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        DestroyObject();
+        if (collision.gameObject.name != "Fireball")
+            DestroyObject();
     }
 
 

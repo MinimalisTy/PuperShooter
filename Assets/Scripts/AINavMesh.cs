@@ -10,19 +10,26 @@ public class AINavMesh : MonoBehaviour
     //public Transform targetPoint;
     private NavMeshAgent _navMeshAgent;
     public PlayerController player;
+    private PlayerHealth playerhp;
     private bool isPlayer;
     public float viewVector;
+    public float damage;
 
     private void Start()
     {
         GetLinks();
         RandomTarget();
+        playerhp = player.gameObject.GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
         RaycastForPlayerUpdate();
         MoveUpdate();
+        if(isPlayer && _navMeshAgent.remainingDistance < _navMeshAgent.stoppingDistance)
+            Invoke("AttackUpdate",1);
+        else
+            CancelInvoke("AttackUpdate");
     }
 
 
@@ -33,7 +40,11 @@ public class AINavMesh : MonoBehaviour
 
 
 
-
+    private void AttackUpdate()
+    {
+        playerhp.DealDamage(damage);
+        CancelInvoke();
+    }
 
     private void MoveUpdate()
     {
@@ -68,7 +79,7 @@ public class AINavMesh : MonoBehaviour
 
     private void GetNewPatrolPoint()
     {
-        if (_navMeshAgent.remainingDistance == 0)
+        if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
             RandomTarget();
     }
     private void GetLinks()
