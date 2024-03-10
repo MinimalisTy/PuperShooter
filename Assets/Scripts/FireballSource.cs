@@ -11,7 +11,7 @@ public class FireballSource : MonoBehaviour
 
     private void Update()
     {
-        Aim();
+        Aim();  
     }
 
     private void Aim()

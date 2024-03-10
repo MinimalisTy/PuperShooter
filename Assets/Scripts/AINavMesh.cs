@@ -14,12 +14,14 @@ public class AINavMesh : MonoBehaviour
     private bool isPlayer;
     public float viewVector;
     public float damage;
+    Animator animator;
 
     private void Start()
     {
         GetLinks();
         RandomTarget();
         playerhp = player.gameObject.GetComponent<PlayerHealth>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -27,9 +29,18 @@ public class AINavMesh : MonoBehaviour
         RaycastForPlayerUpdate();
         MoveUpdate();
         if(isPlayer && _navMeshAgent.remainingDistance < _navMeshAgent.stoppingDistance)
-            Invoke("AttackUpdate",1);
+        {
+            animator.SetBool("TargetPlayer", true);
+            Invoke("AttackPose",1);
+        }
+
         else
+        {
             CancelInvoke("AttackUpdate");
+            animator.SetBool("Attack", false);
+            animator.SetBool("TargetPlayer", false);
+        }
+
     }
 
 
@@ -38,11 +49,17 @@ public class AINavMesh : MonoBehaviour
 
 
 
-
-
+    private void AttackPose()
+    {
+        animator.SetBool("Attack", false);
+        Invoke("AttackUpdate", 1);
+    }
+    
     private void AttackUpdate()
     {
+        animator.SetBool("TargetPlayer", false);
         playerhp.DealDamage(damage);
+        animator.SetBool("Attack", true);
         CancelInvoke();
     }
 

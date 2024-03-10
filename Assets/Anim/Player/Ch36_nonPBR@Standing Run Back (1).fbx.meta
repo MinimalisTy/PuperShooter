@@ -1,29 +1,9 @@
 fileFormatVersion: 2
-guid: a7795338f1ed0474da9497d7748c8421
+guid: e419f8e8868971d429e539c1bfb31832
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch36_1001_Diffuse
-    second: {fileID: 2800000, guid: ad27d411a796a0946a04b0d015c47d5c, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch36_1001_Glossiness
-    second: {fileID: 2800000, guid: f502a2590b1d76e41b57ed6d11654ece, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch36_1001_Normal
-    second: {fileID: 2800000, guid: 6c0cc66d2ca0bed4ab028b4aa7ca05ff, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch36_1001_Specular
-    second: {fileID: 2800000, guid: c28f7269f196a694c98037cdb0dde17d, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -53,18 +33,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Standing Run Back
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
