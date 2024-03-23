@@ -1255,6 +1255,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3830767848835127956, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
   m_PrefabInstance: {fileID: 1973827277}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &938058510 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3830767848835127957, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+  m_PrefabInstance: {fileID: 1973827277}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1116310405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2635,6 +2640,46 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 911735531}
+    - target: {fileID: 3830767848415951884, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: x
+      value: 210
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830767848415951884, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 938058510}
+    - target: {fileID: 3830767848415951884, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1991412558}
+    - target: {fileID: 3830767848415951884, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: MaxAngle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830767848415951884, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: MinAngle
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830767848835127954, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1991412558}
+    - target: {fileID: 3830767848835127954, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: MaxAngle
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830767848835127954, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: MinAngle
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830767848835127954, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772000838218974459, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+      propertyPath: hp
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 5772000838218974459, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
       propertyPath: camera
       value: 
@@ -2717,6 +2762,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   center: {fileID: 732610911}
   fireball: {fileID: 4516448532483533884, guid: 3fbc947dff1d6f644a961e4560af7398, type: 3}
+--- !u!4 &1991412558 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3830767848415951873, guid: 4e36085f631fb654f819dbfd8453410f, type: 3}
+  m_PrefabInstance: {fileID: 1973827277}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2002234200
 GameObject:
   m_ObjectHideFlags: 0

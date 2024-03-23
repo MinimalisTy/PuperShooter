@@ -41,6 +41,9 @@ public class EnemyHP : MonoBehaviour
     public void DealDamage(float damage)
     {
         hp -= damage;
+        animator.SetBool("Hit", true);
+        gameObject.GetComponent<NavMeshAgent>().speed = 0;
+        Invoke("HitStop", 0.3f);
     }
 
 

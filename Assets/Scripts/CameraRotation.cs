@@ -5,29 +5,24 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-
+    public Transform Camera;
     public float x;
     public float MaxAngle, MinAngle;
 
     void Update()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if(gameObject.name == "Player")
-        {
-            transform.Rotate(0, x * Input.GetAxis("Mouse X"), 0);
-        }
-        else
-        {
-            if( transform.localEulerAngles.x <= 40 && transform.localEulerAngles.x >= 0 || transform.localEulerAngles.x <= 45 && transform.localEulerAngles.x >= 40 && Input.GetAxis("Mouse Y") > 0)
-            {
-               transform.Rotate(x * -Input.GetAxis("Mouse Y"), 0, 0);
-            }
-            if (transform.localEulerAngles.x >= 310 && transform.localEulerAngles.x <= 360 || transform.localEulerAngles.x >= 305 && transform.localEulerAngles.x <= 310 && Input.GetAxis("Mouse Y") < 0)
-            {
-                transform.Rotate(x * -Input.GetAxis("Mouse Y"), 0, 0);
-            }
 
-        }
+        var newAngleY = transform.localEulerAngles.y + Time.deltaTime * Input.GetAxis("Mouse X") * x;
+        transform.localEulerAngles = new Vector3(0, newAngleY, 0);
+
+        var newAngleX = Camera.localEulerAngles.x - Time.deltaTime * x * Input.GetAxis("Mouse Y");
+        if (newAngleX > 180)
+            newAngleX -= 360;
+
+        newAngleX= Mathf.Clamp(newAngleX, MinAngle, MaxAngle);
+
+        Camera.localEulerAngles = new Vector3(newAngleX, 0, 0);
         
     }
 }
