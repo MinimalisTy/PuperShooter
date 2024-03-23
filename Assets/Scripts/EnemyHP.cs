@@ -51,6 +51,7 @@ public class EnemyHP : MonoBehaviour
     public void HitStop()
     {
         animator.SetBool("Hit", false);
+        gameObject.GetComponent<AINavMesh>().CancelInvoke("AttackUpdate");
         gameObject.GetComponent<NavMeshAgent>().speed = 3.5f;
     }
 
@@ -59,6 +60,7 @@ public class EnemyHP : MonoBehaviour
         GetComponent<AINavMesh>().enabled = false;
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<AINavMesh>().CancelInvoke("AttackUpdate");
     }
 
     public void Death()
