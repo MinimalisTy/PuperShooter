@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,11 +8,12 @@ public class EnemyHP : MonoBehaviour
 {
     public float hp = 100;
     Animator animator;
-
+    private PlayerProgress Player;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        Player = FindObjectOfType<PlayerProgress>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -19,31 +21,30 @@ public class EnemyHP : MonoBehaviour
         if (collision.gameObject.tag == "Fireball")
         {
             {
-                hp -= collision.gameObject.GetComponent<Fireball>().damage;
-                animator.SetBool("Hit", true);
-                gameObject.GetComponent<NavMeshAgent>().speed = 0;
-                Invoke("HitStop", 0.3f);
+                DealDamage(collision.gameObject.GetComponent<Fireball>().damage);
             }
         }
     }
 
-    private void Update()
+
+
+    public void DealDamage(float damage)
     {
+        hp -= damage;
         if (hp <= 0)
         {
             animator.SetBool("Death", true);
             Death05();
             Invoke("Death", 4);
         }
-    }
-
-
-    public void DealDamage(float damage)
-    {
-        hp -= damage;
-        animator.SetBool("Hit", true);
+        else
+        {
+            animator.SetBool("Hit", true);
+        }
         gameObject.GetComponent<NavMeshAgent>().speed = 0;
         Invoke("HitStop", 0.3f);
+        Player.AddExperiance(damage);
+        
     }
 
 
