@@ -6,9 +6,13 @@ using UnityEngine;
 [Serializable]public class PlayerProgressLevel
 {
 
-    public float fireballDamage;
     public float granadeDamage;
     public float experianceForTheNextLevel;
+    public float timeForSpawnEnemy;
+    public int UpgradePoints;
+
+    public float fireballDamage;
+    public int FireballDamageCost;
 
 
 }
