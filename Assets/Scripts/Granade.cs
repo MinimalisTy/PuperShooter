@@ -6,6 +6,7 @@ public class Granade : MonoBehaviour
 {
 
     public float delay;
+    public float damage;
     public GameObject ExplosionPrefab;
 
 

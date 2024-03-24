@@ -10,7 +10,7 @@ public class Fireball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name != "Fireball")
+        if (!collision.gameObject.name.Contains("Fireball"))
             DestroyObject();
     }
 

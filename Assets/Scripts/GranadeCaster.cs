@@ -8,7 +8,9 @@ public class GranadeCaster : MonoBehaviour
     public Transform GranadeSourceTransform;
     public float force;
     private StaminaForCast stamina;
-    public float cost; 
+    public float cost;
+    public float damage;
+    public float radius;
     private void Start()
     {
         stamina = FindObjectOfType<StaminaForCast>();
@@ -20,6 +22,8 @@ public class GranadeCaster : MonoBehaviour
         {
             stamina.StaminaSpend(cost);
             var granade = Instantiate(Granade);
+            granade.GetComponent<Granade>().ExplosionPrefab.GetComponent<Explosion>().damage = damage;
+            granade.GetComponent<Granade>().ExplosionPrefab.GetComponent<Explosion>().maxSize = radius;
             granade.transform.position = GranadeSourceTransform.position;
             granade.GetComponent<Rigidbody>().AddForce(GranadeSourceTransform.forward * force);
         }

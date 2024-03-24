@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    float maxSize = 8;
+    public float maxSize = 8;
     public float damage;
     private void Start()
     {

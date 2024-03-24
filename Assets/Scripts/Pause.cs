@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pause : MonoBehaviour
 {
     int paused = 0;
-    public GameObject Menu, UI;
+    public GameObject Menu, UI, UpgradeUI, MenuContent;
 
     private void Update()
     {
@@ -44,6 +44,8 @@ public class Pause : MonoBehaviour
         Menu.SetActive(false);
         UI.SetActive(true);
         paused = 0;
+        MenuContent.SetActive(true);
+        UpgradeUI.SetActive(false);
     }
 
 }
