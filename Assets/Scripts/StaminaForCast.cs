@@ -6,7 +6,9 @@ public class StaminaForCast : MonoBehaviour
 {
 
     public float _staminaValue;
-    private float _maxStaminaValue;
+    public float _maxStaminaValue;
+    public float reload;
+    bool reloadTrue;
     public RectTransform staminaBar;
 
     private void Start()
@@ -16,16 +18,21 @@ public class StaminaForCast : MonoBehaviour
     }
     private void Update()
     {
-
+        if(_staminaValue < _maxStaminaValue && reloadTrue == true)
+        {
+            _staminaValue += reload * Time.deltaTime;
+            DrawUI();
+        }
     }
 
     public void StaminaUpdate1()
     {
-        StaminaUpdate(1);
+        reloadTrue = true;
     }
 
     public void StaminaSpend(float cost)
     {
+        reloadTrue = false;
         _staminaValue -= cost;
         CancelInvoke("StaminaUpdate1");
         
@@ -36,21 +43,6 @@ public class StaminaForCast : MonoBehaviour
         DrawUI();
     }
 
-    public void StaminaUpdate(float fill)
-    {
-        if (_staminaValue < _maxStaminaValue)
-        {
-            _staminaValue += fill * Time.deltaTime * 25;
-            Invoke("StaminaUpdate1",0.1f);
-            Debug.Log("Update");
-        }
-        else
-        {
-            Debug.Log("Stop Update");
-            CancelInvoke();
-        }
-        DrawUI();
-    }
 
     private void DrawUI()
     {

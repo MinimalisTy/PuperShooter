@@ -7,8 +7,17 @@ using UnityEngine;
 {
 
     public float granadeDamage;
+
+
     public float experianceForTheNextLevel;
+
+
     public float timeForSpawnEnemy;
+    public float EnemyHPMax;
+    public float EnemyDamage;
+    public float Enemyspeed;
+
+
     public int UpgradePoints;
 
     public float fireballDamage;
@@ -34,7 +43,7 @@ using UnityEngine;
     public float StaminaReload;
     public float StaminaReloadCost;
 
-    public float HealthMax;
-    public float HealthMaxCost;
+    public float PlayerHealthMax;
+    public float PlayerHealthMaxCost;
 
 }

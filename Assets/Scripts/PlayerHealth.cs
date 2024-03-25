@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public float hp;
-    private float maxhp = 100;
+    public float maxhp = 100;
     public RectTransform valueRectTransform;
     public GameObject GameplayUI;
     public GameObject GameOverUI, camera;
+    public Animator anim, player;
+
     private void Start()
     {
         hp = maxhp;
@@ -34,13 +36,18 @@ public class PlayerHealth : MonoBehaviour
         DrawHealhBar();
     }
 
-    private void DrawHealhBar()
+    public void DrawHealhBar()
     {
         valueRectTransform.anchorMax = new Vector2(hp/maxhp, 1);
     }
 
     private void PlayersDead()
     {
+        player.SetInteger("Dead", 1);
+        anim.gameObject.GetComponent<Animator>().enabled = true;
+        anim.SetBool("GameOver", true);
+        Time.timeScale = 0.25f;
+        GetComponent<Pause>().enabled = false;
         GameplayUI.SetActive(false);
         GameOverUI.SetActive(true);
         GetComponent<FireballCaster>().enabled = false;

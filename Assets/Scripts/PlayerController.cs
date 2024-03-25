@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private Vector3 _moveVector, _moveVectorRight;
     public Animator anim;
-
+    public RectTransform AAA;
     private void Start()
     {
         jc = JumpCount;
@@ -73,4 +73,13 @@ public class PlayerController : MonoBehaviour
             _fallVelocity = 0;
         }
     }
+
+
+
+    public void AAAAAAAA()
+    {
+        AAA.localPosition = new Vector3(353.04f, 0, 0);
+    }
+
+
 }

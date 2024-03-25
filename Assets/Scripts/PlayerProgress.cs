@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerProgress : MonoBehaviour
@@ -15,14 +16,23 @@ public class PlayerProgress : MonoBehaviour
     public int points = 0;
     private float FireballDamageLVL = 1, FireballCostLVL = 1, FireballFirerateLVL = 1;
     private float GranadeDamageLVL = 1, GranadeRadiusLVL = 1, GranadeCostLVL = 1;
+    private float StaminaMaxLVL = 1, StaminaReloadLVL = 1;
+    private float PlayerHealthMaxLVL = 1;
     public TextMeshProUGUI FireballDamageText, FireballCostText, FireballFirerateText;
     public TextMeshProUGUI GranadeDamageText, GranadeRadiusText, GranadeCostText;
+    public TextMeshProUGUI StaminaMaxText, StaminaReloadText;
+    public TextMeshProUGUI PlayerHealthMaxText;
     public RectTransform GranadeDamageBarUI, GranadeRadiusBarUI, GranadeCostBarUI;
+    public RectTransform StaminaMaxBarUI, StaminaReloadBarUI;
+    public RectTransform PlayerHealthMaxBarUI;
+    public List<TextMeshProUGUI> Points;
+    public List<GobliSpawn> spawn;
 
     private void Start()
     {
         SetLevel(_LVLValue);
         DrawUI();
+        PointUpdate();
         maxLvl = levels.Count;
         for(int i = 1; i < levels.Count/3; i++)
         {
@@ -48,6 +58,7 @@ public class PlayerProgress : MonoBehaviour
                 SetLevel(_LVLValue += 1);
                 _experianceCurrentValue = 0;
                 points += levels[_LVLValue - 1].UpgradePoints;
+                PointUpdate();
             }
             DrawUI();
         }
@@ -57,6 +68,13 @@ public class PlayerProgress : MonoBehaviour
         _LVLValue = value;
 
         _experianceTargetValue = levels[_LVLValue - 1].experianceForTheNextLevel;
+        for(int i = 0; i < spawn.Count; i++)
+        {
+            spawn[i].maxSpeed = levels[_LVLValue - 1].Enemyspeed;
+            spawn[i].time = levels[_LVLValue - 1].timeForSpawnEnemy;
+            spawn[i].maxHP = levels[_LVLValue - 1].EnemyHPMax;
+        }
+
     }
     private void DrawUI()
     {
@@ -65,12 +83,20 @@ public class PlayerProgress : MonoBehaviour
     }
 
 
+    private void PointUpdate()  
+    {
+        for(int i = 0; i < Points.Count; i++)
+            Points[i].text = points.ToString();
+    }
+
+
     public void FireballDamageUpgrade()
     {
-        if (points - levels[(int)FireballDamageLVL - 1].FireballDamageCost >= 0 && FireballDamageLVL < 10)
+        if (points - levels[(int)FireballDamageLVL].FireballDamageCost >= 0 && FireballDamageLVL < 10)
         {
             FireballDamageLVL++;
-            points -= levels[(int)FireballDamageLVL - 1].FireballDamageCost;
+            points -= levels[(int)FireballDamageLVL-1].FireballDamageCost;
+            PointUpdate();
             GetComponent<FireballCaster>().damage = levels[(int)FireballDamageLVL - 1].fireballDamage;
             DrawFireballDamageUI();
         }
@@ -87,10 +113,11 @@ public class PlayerProgress : MonoBehaviour
 
     public void FireballCostUpgrade()
     {
-        if (points - levels[(int)FireballCostLVL - 1].FireballCasterCostCost >= 0 && FireballCostLVL < 10)
+        if (points - (int)levels[(int)FireballCostLVL].FireballCasterCostCost >= 0 && FireballCostLVL < 10)
         {
             FireballCostLVL++;
-            points -= (int)levels[(int)FireballCostLVL - 1].FireballCasterCostCost;
+            points -= (int)levels[(int)FireballCostLVL-1].FireballCasterCostCost;
+            PointUpdate();
             GetComponent<FireballCaster>().cost = levels[(int)FireballCostLVL - 1].FireballCasterCost;
             DrawFireballCost();
         }
@@ -104,12 +131,14 @@ public class PlayerProgress : MonoBehaviour
         FireballCostBarUI.anchorMax = new Vector2(FireballCostLVL / 10, 1);
     }
 
+
     public void FireballFirerateUpgrade()
     {
-        if (points - levels[(int)FireballFirerateLVL - 1].FireballFirerateCost >= 0 && FireballFirerateLVL < 10)
+        if (points - levels[(int)FireballFirerateLVL].FireballFirerateCost >= 0 && FireballFirerateLVL < 10)
         {
             FireballFirerateLVL++;
             points -= (int)levels[(int)FireballFirerateLVL - 1].FireballFirerateCost;
+            PointUpdate();
             GetComponent<FireballCaster>().reloadTime = levels[(int)FireballFirerateLVL - 1].FireballFirerate;
             DrawFireballFirerate();
         }
@@ -123,12 +152,14 @@ public class PlayerProgress : MonoBehaviour
         FireballFirerateBarUI.anchorMax = new Vector2(FireballFirerateLVL / 10, 1);
     }
 
+
     public void GranadeDamageUpgrade()
     {
-        if (points - levels[(int)GranadeDamageLVL - 1].GranadeDamageCost >= 0 && GranadeDamageLVL < 10)
+        if (points - levels[(int)GranadeDamageLVL].GranadeDamageCost >= 0 && GranadeDamageLVL < 10)
         {
             GranadeDamageLVL++;
             points -= (int)levels[(int)GranadeDamageLVL - 1].GranadeDamageCost;
+            PointUpdate();
             GetComponent<GranadeCaster>().damage = levels[(int)GranadeDamageLVL - 1].granadeDamage;
             DrawGranadeDamage();
         }
@@ -142,12 +173,14 @@ public class PlayerProgress : MonoBehaviour
         GranadeDamageBarUI.anchorMax = new Vector2(GranadeDamageLVL / 10, 1);
     }
 
+
     public void GranadeRadiusUpgrade()
     {
-        if (points - levels[(int)GranadeRadiusLVL - 1].GranadeRadiusCost >= 0 && GranadeRadiusLVL < 10)
+        if (points - levels[(int)GranadeRadiusLVL].GranadeRadiusCost >= 0 && GranadeRadiusLVL < 10)
         {
             GranadeRadiusLVL++;
             points -= (int)levels[(int)GranadeRadiusLVL - 1].GranadeRadiusCost;
+            PointUpdate();
             GetComponent<GranadeCaster>().radius = levels[(int)GranadeRadiusLVL - 1].GranadeRadius;
             DrawGranadeRadius();
         }
@@ -161,12 +194,14 @@ public class PlayerProgress : MonoBehaviour
         GranadeRadiusBarUI.anchorMax = new Vector2(GranadeRadiusLVL / 10, 1);
     }
 
+
     public void GranadeCostUpgrade()
     {
-        if (points - levels[(int)GranadeCostLVL - 1].GranadeCostCost >= 0 && GranadeCostLVL < 10)
+        if (points - levels[(int)GranadeCostLVL].GranadeCostCost >= 0 && GranadeCostLVL < 10)
         {
             GranadeCostLVL++;
             points -= (int)levels[(int)GranadeCostLVL - 1].GranadeCostCost;
+            PointUpdate();
             GetComponent<GranadeCaster>().cost = levels[(int)GranadeCostLVL - 1].GranadeCost;
             DrawGranadeCost();
         }
@@ -179,4 +214,68 @@ public class PlayerProgress : MonoBehaviour
     {
         GranadeCostBarUI.anchorMax = new Vector2(GranadeCostLVL / 10, 1);
     }
+
+
+    public void StaminaMaxUpgrade()
+    {
+        if (points - levels[(int)StaminaMaxLVL].StaminaMaxCost >= 0 && StaminaMaxLVL < 10)
+        {
+            StaminaMaxLVL++;
+            points -= (int)levels[(int)StaminaMaxLVL-1].StaminaMaxCost;
+            PointUpdate();
+            GetComponent<StaminaForCast>()._maxStaminaValue = levels[(int)StaminaMaxLVL - 1].StaminaMax;
+            DrawStaminaMax();
+        }
+        if (levels[(int)StaminaMaxLVL].StaminaMaxCost != 0)
+            StaminaMaxText.text = levels[(int)StaminaMaxLVL].StaminaMaxCost.ToString() + " Points";
+        else
+            StaminaMaxText.text = "Max";
+    }
+    private void DrawStaminaMax()
+    {
+        StaminaMaxBarUI.anchorMax = new Vector2(StaminaMaxLVL / 10, 1);
+    }
+
+    public void StaminaReloadUpgrade()
+    {
+        if (points - levels[(int)StaminaReloadLVL].StaminaReloadCost >= 0 && StaminaReloadLVL < 10)
+        {
+            StaminaReloadLVL++;
+            points -= (int)levels[(int)StaminaReloadLVL-1].StaminaReloadCost;
+            PointUpdate();
+            GetComponent<StaminaForCast>().reload = levels[(int)StaminaReloadLVL - 1].StaminaReload;
+            DrawStaminaReload();
+        }
+        if (levels[(int)StaminaReloadLVL].StaminaReloadCost != 0)
+            StaminaReloadText.text = levels[(int)StaminaReloadLVL].StaminaReloadCost.ToString() + " Points";
+        else
+            StaminaReloadText.text = "Max";
+    }
+    private void DrawStaminaReload()
+    {
+        StaminaReloadBarUI.anchorMax = new Vector2(StaminaReloadLVL / 10, 1);
+    }
+
+    public void PlayerHealthMaxUpgrade()
+    {
+        if (points - levels[(int)PlayerHealthMaxLVL].PlayerHealthMaxCost >= 0 && PlayerHealthMaxLVL < 10)
+        {
+            PlayerHealthMaxLVL++;
+            points -= (int)levels[(int)PlayerHealthMaxLVL-1].PlayerHealthMaxCost;
+            PointUpdate();
+            GetComponent<PlayerHealth>().hp = (float)levels[(int)PlayerHealthMaxLVL - 1].PlayerHealthMax * ((float)GetComponent<PlayerHealth>().hp/(float)GetComponent<PlayerHealth>().maxhp);
+            GetComponent<PlayerHealth>().maxhp = levels[(int)PlayerHealthMaxLVL - 1].PlayerHealthMax;
+            GetComponent<PlayerHealth>().DrawHealhBar();
+            DrawPlayerHealthMax();
+        }
+        if (levels[(int)PlayerHealthMaxLVL].PlayerHealthMaxCost != 0)
+            PlayerHealthMaxText.text = levels[(int)PlayerHealthMaxLVL].PlayerHealthMaxCost.ToString() + " Points";
+        else
+            PlayerHealthMaxText.text = "Max";
+    }
+    private void DrawPlayerHealthMax()
+    {
+        PlayerHealthMaxBarUI.anchorMax = new Vector2(PlayerHealthMaxLVL / 10, 1);
+    }
+
 }

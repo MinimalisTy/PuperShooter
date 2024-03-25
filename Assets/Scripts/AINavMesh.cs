@@ -81,7 +81,7 @@ public class AINavMesh : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up, direction, out hit))
             {
-                if (hit.collider.gameObject == player.gameObject)
+                if (hit.collider.gameObject == player.gameObject && playerhp.hp > 0)
                 {
                     isPlayer = true;
                 }

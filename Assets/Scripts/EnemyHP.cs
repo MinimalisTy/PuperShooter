@@ -6,9 +6,10 @@ using UnityEngine.AI;
 
 public class EnemyHP : MonoBehaviour
 {
-    public float hp = 100;
+    public float hp = 50;
     Animator animator;
     private PlayerProgress Player;
+    public float speed;
 
     private void Start()
     {
@@ -52,7 +53,7 @@ public class EnemyHP : MonoBehaviour
     {
         animator.SetBool("Hit", false);
         gameObject.GetComponent<AINavMesh>().CancelInvoke("AttackUpdate");
-        gameObject.GetComponent<NavMeshAgent>().speed = 3.5f;
+        gameObject.GetComponent<NavMeshAgent>().speed = speed;
     }
 
     public void Death05()

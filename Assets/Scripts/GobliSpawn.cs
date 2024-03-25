@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GobliSpawn : MonoBehaviour
 {
@@ -10,10 +11,13 @@ public class GobliSpawn : MonoBehaviour
     public GameObject goblin, GoblinStart;
     public PlayerController player;
     public float spawnTime;
-    float time;
+    public float time;
+    public float maxHP;
+    public float maxSpeed;
+
+
     private void Start()
     {
-        time = spawnTime;
         patrol = GoblinStart.GetComponent<AINavMesh>().patrolPoints;
     }
 
@@ -36,6 +40,9 @@ public class GobliSpawn : MonoBehaviour
         gobl.transform.position = spawn.position;
         gobl.GetComponent<AINavMesh>().patrolPoints = patrol;
         gobl.GetComponent<AINavMesh>().player = player;
+        gobl.GetComponent<EnemyHP>().hp = maxHP;
+        gobl.GetComponent<EnemyHP>().speed = maxSpeed;
+        gobl.GetComponent<NavMeshAgent>().speed = maxSpeed;
     }
 
 }
